@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
+import { default as StoreContext, store } from "./store";
 import reportWebVitals from "./reportWebVitals";
 import "semantic-ui-css/semantic.min.css";
 import "./styles/index.css";
 
 ReactDOM.render(
-	<React.StrictMode>
+	<StoreContext.Provider value={store}>
 		<App />
-	</React.StrictMode>,
+	</StoreContext.Provider>,
 	document.getElementById("root")
 );
 
