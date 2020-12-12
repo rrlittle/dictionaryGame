@@ -1,14 +1,7 @@
-from flask import Flask, request
-from flask_socketio import SocketIO, emit
-from flask_cors import CORS
+from . import socketio
+from flask import request
+from flask_socketio import emit
 from random import choice
-
-
-app = Flask(__name__)
-CORS(app)
-app.config['SECRET_KEY'] = 'secret'
-socketio = SocketIO(app, cors_allowed_origins="*")
-
 
 players = {
     'Russell': {
@@ -81,7 +74,3 @@ def submitDefinition(defn):
     submissions += 1
     if submissions >= len(players):
         socketio.emit('onWritingDefinitionsDone', None)
-
-
-if __name__ == '__main__':
-    socketio.run(app, debug=True)
