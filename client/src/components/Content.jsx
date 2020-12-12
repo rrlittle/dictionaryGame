@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { Grid, Segment, Ref, Sticky, Header } from "semantic-ui-react";
+import { Grid, Ref, Sticky } from "semantic-ui-react";
+import Room from "./Room";
 
 const Content = ({ children }) => {
 	const ref = useRef();
@@ -8,10 +9,7 @@ const Content = ({ children }) => {
 			<Grid>
 				<Grid.Column width={4}>
 					<Sticky context={ref} offset={100}>
-						<Segment>
-							<Header>People in the room</Header>
-							<div>I'm here</div>
-						</Segment>
+						<Room />
 					</Sticky>
 				</Grid.Column>
 				<Grid.Column stretched width={12}>

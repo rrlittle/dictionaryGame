@@ -1,7 +1,7 @@
 import GameSpace from "./GameSpace";
 import Content from "./Content";
 import Header from "./Header";
-import React, { useState } from "react";
+import React from "react";
 import { Container } from "semantic-ui-react";
 
 const App = () => (

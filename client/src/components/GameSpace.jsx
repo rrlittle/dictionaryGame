@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { observer } from "mobx-react";
-import { HostScreen, PlayerScreen } from "./screens";
 import Store from "../store";
+import { HostScreen, PlayerScreen } from "./screens";
 
 const GameSpace = observer(() => {
 	const store = useContext(Store);

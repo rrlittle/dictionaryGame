@@ -1,8 +1,16 @@
-import React from "react";
-import { Tab } from "semantic-ui-react";
+import React, { useContext } from "react";
+import { observer } from "mobx-react";
+import Store from "../../../store";
+import { Tab, Progress } from "semantic-ui-react";
 
-const WaitingForResults = () => (
-	<Tab.Pane>Waiting for the host to select a word</Tab.Pane>
-);
+const WaitForResults = observer(() => {
+	const store = useContext(Store);
+	return (
+		<Tab.Pane>
+			<p>Waiting for all the players to submit their defintions.</p>
+			<Progress percent={store.playerSubmissionPercent} indicating />
+		</Tab.Pane>
+	);
+});
 
-export default WaitingForResults;
+export default WaitForResults;
