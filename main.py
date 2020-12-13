@@ -1,3 +1,4 @@
 from server import socketio, app
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    app.debug = True
+    socketio.run(app, debug=True, logger=True)

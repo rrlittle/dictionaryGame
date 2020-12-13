@@ -5,10 +5,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 app.config['SECRET_KEY'] = 'secret'
-app.debug = True
-socketio = SocketIO(app,
-                    cors_allowed_origins="*",
-                    logger=True,
-                    engineio_logger=True)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 from . import events
