@@ -1,11 +1,11 @@
 from flask import request
-from .user import User
+from .user import newUser, register_name, name
 
 clientsBySid = {}
 
 
 def join():
-    user = User()
+    user = newUser()
     clientsBySid[request.sid] = user
     return user
 
@@ -22,8 +22,8 @@ def update_user(name):
     '''user is registering their name'''
     user = clientsBySid.get(request.sid)
     if(user):
-        return user.register_name(name)
+        return register_name(user, name)
 
 
 def getUsers():
-    return {c for c in clientsBySid.values() if c.name is not None}
+    return [c for c in clientsBySid.values() if name(c) is not None]

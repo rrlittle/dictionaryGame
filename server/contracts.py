@@ -1,5 +1,7 @@
 from . import clients
 from . import game
+from .user import name, _id, oldName
+from . import definition
 
 
 CONNECT = 'connect'
@@ -26,7 +28,9 @@ PLAYER_VOTED = 'player_voted'
 
 
 def on_connect():
-    return dict()
+    return dict(
+        users=[dict(name=name(u),
+                    oldName=oldName(u)) for u in clients.getUsers()])
 
 
 def player_disconnects():
@@ -35,12 +39,12 @@ def player_disconnects():
 
 def player_registered():
     user = clients.getUser()
-    return dict(name=user.name,
-                oldName=user.oldName)
+    return dict(name=name(user),
+                oldName=oldName(user))
 
 
 def game_begun():
-    return dict(host=game.host())
+    return dict(host=name(game.host()))
 
 
 def host_submitted_word():
@@ -48,8 +52,10 @@ def host_submitted_word():
 
 
 def player_submitted_defn():
+    defn = definition.getDef()
     return dict(percent=game.percent_defn_submitted(),
-                definition=game.defn())
+                definition=dict(text=definition.text(defn),
+                                _id=definition._id(defn)))
 
 
 def all_defns_submitted():

@@ -1,14 +1,24 @@
 from flask import request
 
 
-class User():
-    name = None
-    oldName = None
-    _id = None
+def newUser():
+    return dict(name=None, oldName=None, _id=request.sid)
 
-    def register_name(self, name):
-        if name == self.name:
-            return
-        self.oldName = self.name
-        self.name = name
-        self._id = request.sid
+
+def register_name(u, name):
+    if(name == u.get('name')):
+        return
+    u['oldName'] = u.get('name')
+    u['name'] = name
+
+
+def name(u):
+    return u.get('name')
+
+
+def oldName(u):
+    return u.get('oldName')
+
+
+def _id(u):
+    return u.get('_id')
