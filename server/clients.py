@@ -27,3 +27,7 @@ def update_user(name):
 
 def getUsers():
     return [c for c in clientsBySid.values() if name(c) is not None]
+
+
+def all():
+    return clientsBySid

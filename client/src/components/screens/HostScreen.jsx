@@ -1,28 +1,26 @@
-import React, { useContext } from "react";
-import { observer } from "mobx-react";
-import Store from "../../store";
-import { Segment, Tab } from "semantic-ui-react";
+import React from "react";
 import { ChooseAWord, WriteADefinition, WatchVotes } from "./gameTabs";
+import TabsScreen from "./TabsScreen";
 
-const HostScreen = observer(() => {
-	const panes = [
-		{ menuItem: "Choose a word", render: () => <ChooseAWord /> },
-		{
-			menuItem: "write the true definition",
-			render: () => <WriteADefinition />,
-		},
-		{ menuItem: "Watch Votes", render: () => <WatchVotes /> },
-	];
+const panes = [
+    { menuItem: "Choose a word", render: () => <ChooseAWord /> },
+    {
+        menuItem: "write the true definition",
+        render: () => <WriteADefinition />,
+    },
+    { menuItem: "Watch Votes", render: () => <WatchVotes /> },
+];
 
-	const store = useContext(Store);
-	return (
-		<div>
-			<Segment>
-				<p>You are the Host!</p>
-			</Segment>
-			<Tab panes={panes} activeIndex={store.activeIndex}></Tab>
-		</div>
-	);
-});
+const screenMap = {
+    choosing: 0,
+    writing: 1,
+    voting: 2,
+};
+
+const HostScreen = () => (
+    <TabsScreen panes={panes} screenMap={screenMap}>
+        <p>You are the Host!</p>
+    </TabsScreen>
+);
 
 export default HostScreen;

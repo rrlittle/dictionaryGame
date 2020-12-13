@@ -3,7 +3,7 @@ import { Segment, Header, List } from "semantic-ui-react";
 import { observer } from "mobx-react";
 import Store from "../store";
 
-const Person = ({ name, points }) => (
+const Person = ({ name = "Anon", points = -1 }) => (
 	<List.Item>
 		<List.Header as="a">{name}</List.Header>
 		<List.Description> {points} points</List.Description>
@@ -16,7 +16,7 @@ const Room = observer(() => {
 		<Segment>
 			<Header>People in the room</Header>
 			<List>
-				{store.getPeople.map(({ name, ...p }) => (
+				{store.users.getPeople.map(({ name, ...p }) => (
 					<Person key={name} name={name} {...p} />
 				))}
 			</List>

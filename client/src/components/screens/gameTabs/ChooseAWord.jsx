@@ -5,6 +5,8 @@ import { Tab, Input } from "semantic-ui-react";
 
 const ChooseAWord = observer(() => {
 	const store = useContext(Store);
+	const game = store.game;
+
 	return (
 		<Tab.Pane>
 			<p>
@@ -15,10 +17,10 @@ const ChooseAWord = observer(() => {
 				fluid
 				placeholder="Enter a word"
 				value={store.hostWord}
-				onChange={(e, { value }) => store.setHostWord(value)}
+				onChange={(e, { value }) => game.typeHostWord(value)}
 				action={{
 					content: "Submit",
-					onClick: () => store.submitHostsWord(),
+					onClick: () => game.submitHostWord(),
 					disabled: store.hostWordSubmitDisabled,
 				}}
 			/>

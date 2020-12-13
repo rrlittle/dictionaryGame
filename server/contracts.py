@@ -1,6 +1,6 @@
 from . import clients
 from . import game
-from .user import name, _id, oldName
+from .user import name, oldName
 from . import definition
 
 
@@ -16,55 +16,81 @@ VOTE = 'vote'                                   # 'DefnId'
 
 
 # server -> client
-ON_CONNECT = "on_connect"
-PLAYER_DISCONNECTS = 'user_disconnects'
-PLAYER_REGISTERED = 'user_registered'
-GAME_BEGUN = 'game_begun'
-HOST_SUBMITTED_WORD = 'host_submitted_word'
-PLAYER_SUBMITTED_DEFN = 'player_submitted_defn'
-ALL_DEFNS_SUBMITTED = 'all_defns_submitted'
-ALL_PLAYERS_VOTED = 'all_players_voted'
-PLAYER_VOTED = 'player_voted'
+def ON_CONNECT():
+    return [
+        "on_connect",
+        dict(
+            host=name(game.host()),
+            hostWord=game.hostWord(),
+            definitions=[
+                dict(
+                    votes=definition.countVotes(d),
+                    text=definition.text(d),
+                    _id=definition._id(d))
+                for d in definition.getDefinitions().values()],
+            stage=game.stage(),
+            users=[dict(name=name(u),
+                        oldName=oldName(u)) for u in clients.getUsers()])]
 
 
-def on_connect():
-    return dict(
-        users=[dict(name=name(u),
-                    oldName=oldName(u)) for u in clients.getUsers()])
+def PLAYER_DISCONNECTS():
+    return [
+        'user_disconnects', dict()
+    ]
 
 
-def player_disconnects():
-    return dict()
-
-
-def player_registered():
+def PLAYER_REGISTERED():
     user = clients.getUser()
-    return dict(name=name(user),
-                oldName=oldName(user))
+    return [
+        'user_registered',
+        dict(name=name(user),
+             oldName=oldName(user))
+    ]
 
 
-def game_begun():
-    return dict(host=name(game.host()))
+def GAME_BEGUN():
+    return [
+        'game_begun',
+        dict(host=name(game.host()),
+             stage=game.stage())
+    ]
 
 
-def host_submitted_word():
-    return dict(word=game.hostWord())
+def HOST_SUBMITTED_WORD():
+    return [
+        'host_submitted_word',
+        dict(word=game.hostWord(),
+             stage=game.stage())
+    ]
 
 
-def player_submitted_defn():
+def PLAYER_SUBMITTED_DEFN():
     defn = definition.getDef()
-    return dict(percent=game.percent_defn_submitted(),
-                definition=dict(text=definition.text(defn),
-                                _id=definition._id(defn)))
+    return [
+        'player_submitted_defn',
+        dict(percent=game.percent_defn_submitted(),
+             definition=dict(text=definition.text(defn),
+                             _id=definition._id(defn)))
+    ]
 
 
-def all_defns_submitted():
-    return dict()
+def ALL_DEFNS_SUBMITTED():
+    return [
+        'all_defns_submitted',
+        dict()
+    ]
 
 
-def all_players_voted():
-    return dict()
+def PLAYER_VOTED(defn):
+    return [
+        'player_voted',
+        dict(_id=definition._id(defn),
+             votes=definition.countVotes(defn))
+    ]
 
 
-def player_voted():
-    return dict()
+def ALL_PLAYERS_VOTED():
+    return [
+        'all_players_voted',
+        dict()
+    ]

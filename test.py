@@ -39,8 +39,8 @@ def test(getter, expecteds, msg=""):
 def test_game():
     c1, g1 = client()
     test(g1, [(ON_CONNECT, dict(users=[]))], 'c1 connect')
-    c1.emit(REGISTER_PLAYER, 'c1')
 
+    c1.emit(REGISTER_PLAYER, 'c1')
     c1User, = test(g1, [(PLAYER_REGISTERED, dict(oldName=None, name='c1'))])
     c1Name = c1User['name']
 

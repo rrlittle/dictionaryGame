@@ -13,12 +13,12 @@ def register_name(u, name):
 
 
 def name(u):
-    return u.get('name')
+    return u.get('name') if u else None
 
 
 def oldName(u):
-    return u.get('oldName')
+    return u.get('oldName') if u else None
 
 
 def _id(u):
-    return u.get('_id')
+    return u.get('_id') if u else None
