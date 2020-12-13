@@ -2,13 +2,16 @@ from flask_socketio import SocketIO
 from flask import Flask
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
-app.config['SECRET_KEY'] = 'secret'
-socketio = SocketIO(app, cors_allowed_origins="*")
 
 from . import events
 
+def create_app():
+    app = Flask(__name__)
+    CORS(app)
+    app.config['SECRET_KEY'] = 'secret'
+    socketio = SocketIO(app, cors_allowed_origins="*")
+
+    
 # from flask import Flask, request
 # from flask_socketio import SocketIO, emit
 # from flask_cors import CORS

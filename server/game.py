@@ -6,7 +6,7 @@ game = None
 
 
 def playing():
-    return game['playing']
+    return game is not None
 
 
 def begin():
@@ -16,12 +16,12 @@ def begin():
                 hostWord=None,
                 defns={},
                 hasVoted=set(),
-                host=choice(users),
-                playing=False)
+                host=choice(users))
 
 
 def end():
-    game['playing'] = False
+    global game
+    game = None
 
 
 def host():
@@ -70,18 +70,3 @@ def all_votes_submitted():
 
 def getVotes():
     return [d for d in game['defns'].values()]
-
-
-def set_user():
-    u = getUser()
-    game['players'].add(u)
-
-
-if __name__ == '__main__':
-    # init a game
-    init()
-    # register a player
-
-    # begin the game
-    # set a host word
-    # submit a definition
