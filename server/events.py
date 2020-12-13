@@ -1,76 +1,51 @@
-from . import socketio
-from flask import request
 from flask_socketio import emit
-from random import choice
-
-players = {
-    'Russell': {
-        "order": 0, 'points': 4
-    }
-}
-
-host = None
-
-hostWord = None
+from . import socketio as s
+from .contracts import *
+from . import clients
+from . import game
 
 
-submissions = 0
-
-
-def chooseHost():
-    global host
-    h = host
-    if host is None:
-        h = choice([n for n in players])
-    host = h
-    return h
-
-
-@socketio.on("connect")
+@s.on(CONNECT)
 def connect():
-    print('new client connected', request.sid)
-    emit('onConnect', dict(players=players, host=host))
+    clients.join()
+    emit(ON_CONNECT, on_connect())  # talk just to the connector
 
 
-@socketio.on('disconnect')
+@s.on(DISCONNECT)
 def disconnect():
-    print('client disconnected', request.sid)
+    clients.leave()
+    s.emit(PLAYER_DISCONNECTS, player_disconnects())
 
 
-def createNewUser(name):
-    newPlayer = dict(name=name, order=len(players), points=0)
-    players[name] = newPlayer
-    return newPlayer
+@s.on(REGISTER_PLAYER)
+def register_user(data):
+    clients.update_user(data)
+    s.emit(PLAYER_REGISTERED, player_registered())
 
 
-@socketio.on('registerUser')
-def registerUser(names):
-    print('received registerUser: ' + str(names))
-    name = names['name']
-    oldName = names['currentName']
-    players.pop(oldName, None)
-    socketio.emit(
-        'userRegistered',
-        dict(newPlayer=createNewUser(name),
-             oldName=oldName))
+@s.on(BEGIN_GAME)
+def begin_game():
+    game.begin()
+    s.emit(GAME_BEGUN, game_begun())
 
 
-@socketio.on('submitWord')
-def submitWord(word):
-    print('host has submitted a word', word)
-    global hostWord
-    hostWord = word
-    socketio.emit('wordSubmitted', word)
+@s.on(HOST_SUBMITS_WORD)
+def submit_word(data):
+    game.record_host_word(data)
+    s.emit(HOST_SUBMITTED_WORD, host_submitted_word())
 
 
-@socketio.on('submitDefinition')
-def submitDefinition(defn):
-    print(f'player has submitted a defintion for word ({hostWord}): {defn}')
-    socketio.emit('defintionSubmitted',
-                  dict(votes=0,
-                       user='user',
-                       definition=defn))
-    global submissions
-    submissions += 1
-    if submissions >= len(players):
-        socketio.emit('onWritingDefinitionsDone', None)
+@s.on(PLAYER_SUBMITS_DEFN)
+def submit_defn(data):
+    game.record_submitted_defn(data)
+    s.emit(PLAYER_SUBMITTED_DEFN, player_submitted_defn())
+    if(game.all_defn_submitted()):
+        s.emit(ALL_DEFNS_SUBMITTED, all_defn_submitted())
+
+
+@s.on(VOTE)
+def vote(data):
+    game.vote(data)
+    s.emit(PLAYER_VOTED, player_voted())
+    if game.all_votes_submitted():
+        s.emit(ALL_PLAYERS_VOTED, all_players_voted())
