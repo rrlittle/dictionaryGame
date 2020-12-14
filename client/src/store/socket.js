@@ -1,6 +1,10 @@
 import io from "socket.io-client";
 
-const socket = io(`http://${document.domain}:${5000}`, {
+const loc = document.location;
+const url =
+    loc.protocol + "//" + loc.hostname + (loc.port ? ":" + loc.port : "");
+
+const socket = io(url, {
     autoConnect: false,
     cors: {
         origin: `http://${document.domain}`,

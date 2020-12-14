@@ -76,6 +76,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "start-api": "python main.py",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },

@@ -12,7 +12,6 @@ const GameSpace = observer(() => {
     const store = useContext(Store);
     const game = store.game;
     const users = store.users;
-    console.log("rendering GameSpace with", game, users);
     if (!users.isRegistered) return <PleaseRegisterScreen />;
     if (game.stage === "lobby") return <LobbyScreen />;
     if (users.isHost) return <HostScreen />;
