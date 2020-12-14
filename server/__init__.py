@@ -7,10 +7,7 @@ app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app)
 app.config['SECRET_KEY'] = 'secret'
 app.debug = True
-socketio = SocketIO(app,
-                    port=environ.get('PORT', 5000),
-                    cors_allowed_origins="*",
-                    logger=True)
+socketio = SocketIO(app, cors_allowed_origins="*", logger=True)
 
 from . import events
 from . import rest
