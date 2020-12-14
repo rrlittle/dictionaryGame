@@ -16,8 +16,8 @@ def getDefinitions():
     return definitions
 
 
-def getDef():
-    u = getUser()
+def getDef(u=None):
+    u = getUser() if u is None else u
     return definitions.get(_idFromUser(u))
 
 
@@ -34,11 +34,14 @@ def countVotes(defn):
     return len(defn['votes'])
 
 
-def getVotes():
+def getVotes(d=None):
     votes = []
-    for d in definitions.values():
-        for v in d['votes']:
-            votes.append(v)
+    if(d is None):
+        for d in definitions.values():
+            for v in d['votes']:
+                votes.append(v)
+    else:
+        votes = d.get('votes')
     return votes
 
 
@@ -61,3 +64,14 @@ def _idFromUser(u):
 
 def all():
     return definitions
+
+
+def whoVotedFor(u):
+    d = definitions.get(_idFromUser(u)) or {}
+    return getVotes(d)
+
+
+def whoDidUserVoteFor(u):
+    for d in definitions.values():
+        if u in d.get('votes', []):
+            return d.get('user')

@@ -60,8 +60,9 @@ class Users {
         this.users[name] = newUser;
     }
 
-    onGameBegins({ host }) {
+    onGameBegins({ host, users }) {
         this.host = host;
+        users.forEach((u) => (this.users[u.name] = u));
     }
 
     /** TRIGGER EXTERNAL EVENTS **/

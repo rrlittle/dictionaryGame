@@ -4,7 +4,8 @@ const constants = {
 
     // client -> server
     REGISTER_PLAYER: "register_user", // 'name'
-    BEGIN_GAME: "begin_game", // None
+    BEGIN_GAME_CLAIMING_HOST: "begin_game_claiming_host",
+    BEGIN_GAME: "begin_game",
     HOST_SUBMITS_WORD: "host_submits_word", // 'word'
     PLAYER_SUBMITS_DEFN: "player_submits_defn", // 'definition'
     VOTE: "vote", // 'DefnId'

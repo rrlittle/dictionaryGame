@@ -8,6 +8,7 @@ class Game {
     hostWord = "";
     hostWordSubmitDisabled = false;
     stage = null;
+    summary = [];
 
     constructor(store) {
         makeAutoObservable(this);
@@ -22,7 +23,7 @@ class Game {
             this.setStage("voting")
         );
         register(constants.ALL_PLAYERS_VOTED, (data) =>
-            this.setStage("summary")
+            this.onAllPlayersVoted(data)
         );
     }
 
@@ -43,11 +44,18 @@ class Game {
         this.hostWord = word;
         this.stage = stage;
     }
+    onAllPlayersVoted({ summary }) {
+        this.summary = summary;
+        this.stage = "summary";
+    }
 
     /** TRIGGER EXTERNAL EVENTS **/
 
     begin() {
         emit(constants.BEGIN_GAME);
+    }
+    claimHost() {
+        emit(constants.BEGIN_GAME_CLAIMING_HOST);
     }
 
     submitHostWord() {

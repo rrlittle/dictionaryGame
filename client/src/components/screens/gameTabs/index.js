@@ -4,3 +4,4 @@ export { default as WatchVotes } from "./WatchVotes";
 export { default as WriteADefinition } from "./WriteADefinition";
 export { default as ChooseAWord } from "./ChooseAWord";
 export { default as Vote } from "./Vote";
+export { default as Summary } from "./Summary";

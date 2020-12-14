@@ -45,15 +45,14 @@ const VoteList = observer(({ allowVote, showUser }) => {
 		<div>
 			<List divided relaxed>
 				{defs.definitions.map((def) => {
-					const { text, _id, user } = def;
+					const { _id } = def;
 					return (
 						<Vote
 							showUser={showUser}
 							allowVote={allowVote}
 							onClick={() => setToVote(def)}
 							key={_id}
-							user={user}
-							text={text}
+							{...def}
 						/>
 					);
 				})}

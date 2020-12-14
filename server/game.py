@@ -1,17 +1,19 @@
 from random import choice
 from .clients import getUsers
-from .definition import getDefinitions, getVotes, clearDefinitions
+from .definition import (getDefinitions, getVotes, clearDefinitions,
+                         whoVotedFor, whoDidUserVoteFor)
+from .user import incrementScore
 
 game = None
 
 
-def begin():
+def begin(host=None):
     global game
     users = getUsers()
     clearDefinitions()
     game = dict(players=users,
                 hostWord=None,
-                host=choice(users))
+                host=choice(users) if host is None else host)
 
 
 def stage():
@@ -28,6 +30,8 @@ def stage():
 
 def end():
     global game
+    for u in getUsers():
+        incrementScore(u, calculatePointsFor(u))
     game = None
 
 
@@ -61,3 +65,20 @@ def all_votes_submitted():
 
 def all():
     return game
+
+
+def calculatePointsFor(u):
+    pts = 0
+    if(u == host()):
+        # if user is host -> if no one guessed 2 pts
+        if len(whoVotedFor(u)) == 0:
+            pts = 2
+    else:
+        # is user is player:
+        #   if someone votes for you 1pt
+        #   if you vote for host's def -> 2pts
+        pts = len(whoVotedFor(u))
+        uVotedFor = whoDidUserVoteFor(u)
+        if (uVotedFor == host()):
+            pts += 2
+    return pts

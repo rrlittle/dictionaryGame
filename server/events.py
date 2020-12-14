@@ -30,6 +30,12 @@ def begin_game(args):
     s.emit(*GAME_BEGUN())
 
 
+@s.on(BEGIN_GAME_CLAIMING_HOST)
+def begin_game_claiming_host(args):
+    game.begin(clients.getUser())
+    s.emit(*GAME_BEGUN())
+
+
 @s.on(HOST_SUBMITS_WORD)
 def submit_word(host_word):
     game.record_host_word(host_word)
@@ -50,3 +56,4 @@ def vote(def_id):
     s.emit(*PLAYER_VOTED(defn))
     if game.all_votes_submitted():
         s.emit(*ALL_PLAYERS_VOTED())
+        game.end()

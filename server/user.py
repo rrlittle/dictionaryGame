@@ -2,7 +2,7 @@ from flask import request
 
 
 def newUser():
-    return dict(name=None, oldName=None, _id=request.sid)
+    return dict(name=None, oldName=None, _id=request.sid, points=0)
 
 
 def register_name(u, name):
@@ -22,3 +22,11 @@ def oldName(u):
 
 def _id(u):
     return u.get('_id') if u else None
+
+
+def points(u):
+    return u.get('points', 0)
+
+
+def incrementScore(u, pts):
+    u['points'] += pts

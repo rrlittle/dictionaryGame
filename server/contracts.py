@@ -1,6 +1,6 @@
 from . import clients
 from . import game
-from .user import name, oldName
+from .user import name, oldName, points
 from . import definition
 
 
@@ -9,7 +9,8 @@ DISCONNECT = 'disconnect'
 
 # client -> server
 REGISTER_PLAYER = 'register_user'               # 'name'
-BEGIN_GAME = 'begin_game'                       # None
+BEGIN_GAME = 'begin_game'
+BEGIN_GAME_CLAIMING_HOST = 'begin_game_claiming_host'
 HOST_SUBMITS_WORD = 'host_submits_word'         # 'word'
 PLAYER_SUBMITS_DEFN = 'player_submits_defn'     # 'definition'
 VOTE = 'vote'                                   # 'DefnId'
@@ -30,7 +31,8 @@ def ON_CONNECT():
                 for d in definition.getDefinitions().values()],
             stage=game.stage(),
             users=[dict(name=name(u),
-                        oldName=oldName(u)) for u in clients.getUsers()])]
+                        oldName=oldName(u),
+                        points=points(u)) for u in clients.getUsers()])]
 
 
 def PLAYER_DISCONNECTS():
@@ -44,7 +46,8 @@ def PLAYER_REGISTERED():
     return [
         'user_registered',
         dict(name=name(user),
-             oldName=oldName(user))
+             oldName=oldName(user),
+             points=points(user))
     ]
 
 
@@ -52,7 +55,11 @@ def GAME_BEGUN():
     return [
         'game_begun',
         dict(host=name(game.host()),
-             stage=game.stage())
+             stage=game.stage(),
+             users=[dict(name=name(u),
+                         oldName=oldName(u),
+                         points=points(u))
+                    for u in clients.getUsers()])
     ]
 
 
@@ -92,5 +99,11 @@ def PLAYER_VOTED(defn):
 def ALL_PLAYERS_VOTED():
     return [
         'all_players_voted',
-        dict()
+        dict(summary=[
+            dict(name=name(u),
+                 host=u == game.host(),
+                 text=definition.text(definition.getDef(u)),
+                 votedBy=[name(vu) for vu in definition.whoVotedFor(u)],
+                 points=game.calculatePointsFor(u))
+            for u in clients.getUsers()])
     ]

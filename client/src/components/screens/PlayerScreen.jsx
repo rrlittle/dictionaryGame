@@ -6,6 +6,7 @@ import {
 	WriteADefinition,
 	WaitingForResults,
 	Vote,
+	Summary,
 } from "./gameTabs";
 import TabsScreen from "./TabsScreen";
 
@@ -14,6 +15,7 @@ const panes = [
 	{ menuItem: "Write a Definition", render: () => <WriteADefinition /> },
 	{ menuItem: "Wait for results", render: () => <WaitingForResults /> },
 	{ menuItem: "Vote", render: () => <Vote /> },
+	{ menuItem: "Summary", render: () => <Summary /> },
 ];
 
 const screenMap = {
@@ -21,6 +23,7 @@ const screenMap = {
 	writing: 1,
 	waiting: 2,
 	voting: 3,
+	summary: 4,
 };
 
 const PlayerScreen = observer(() => {

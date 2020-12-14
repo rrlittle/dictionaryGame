@@ -26,6 +26,7 @@ class Definitions {
     /** EXTERNAL EVENT HANDLERS **/
     initializeDefinitions({ definitions }) {
         this.definitions = definitions;
+        this.tmpDefinition = "";
     }
 
     onPlayerSubittedDefinition({ percent, definition }) {
