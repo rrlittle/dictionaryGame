@@ -21,7 +21,6 @@ const Header = observer(() => {
 				<Menu.Item position="right">
 					<Input
 						placeholder="Enter Your Username"
-						actionPosition="right"
 						action={{
 							compact: true,
 							icon: "user add",

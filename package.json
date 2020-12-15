@@ -20,7 +20,9 @@
     "start": "concurrently --names \"CLIENT,API\" \"npm:client\" \"npm:api\"",
     "client": "react-scripts start",
     "api": ". venv/bin/activate && python main.py",
-    "build": "react-scripts build",
+    "build": "concurrently --names \"BUILDJS, SCRAPE_WORDS\" \"npm:buildjs\" \"npm:scrape\"",
+    "buildjs": "react-scripts build",
+    "scrape": ". venv/bin/activate && python scrapeWords.py",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

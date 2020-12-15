@@ -2,6 +2,8 @@ from sys import setrecursionlimit
 from requests import get
 from bs4 import BeautifulSoup
 from json import dump
+import shutil
+from os import remove
 
 setrecursionlimit(10000)
 
@@ -11,7 +13,7 @@ def buildUrl(page):
 
 
 out_words = []
-
+tmpfile = './server/words_temp.json'
 output = './server/words.json'
 pages = 'abcdefghijklmnopqrstuvwxyz'
 urls = [buildUrl(p) for p in pages]
