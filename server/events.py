@@ -1,4 +1,5 @@
 from flask_socketio import emit
+from flask import request
 from . import socketio as s
 from .contracts import *
 from . import clients
@@ -8,7 +9,8 @@ from . import definition
 
 @s.on(CONNECT)
 def connect():
-    clients.join()
+    userName = request.args.get('userName')
+    clients.join(userName)
     emit(*ON_CONNECT())  # talk just to the connector
 
 

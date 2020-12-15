@@ -3,9 +3,9 @@ import { ChooseAWord, WriteADefinition, WatchVotes, Summary } from "./gameTabs";
 import TabsScreen from "./TabsScreen";
 
 const panes = [
-    { menuItem: "Choose a word", render: () => <ChooseAWord /> },
+    { menuItem: "Choose word", render: () => <ChooseAWord /> },
     {
-        menuItem: "write the true definition",
+        menuItem: "write true definition",
         render: () => <WriteADefinition />,
     },
     { menuItem: "Watch Votes", render: () => <WatchVotes /> },
@@ -19,10 +19,6 @@ const screenMap = {
     summary: 3,
 };
 
-const HostScreen = () => (
-    <TabsScreen panes={panes} screenMap={screenMap}>
-        <p>You are the Host!</p>
-    </TabsScreen>
-);
+const HostScreen = () => <TabsScreen panes={panes} screenMap={screenMap} />;
 
 export default HostScreen;

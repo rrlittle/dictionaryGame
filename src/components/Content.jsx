@@ -5,12 +5,10 @@ import Room from "./Room";
 const Content = ({ children }) => {
 	const ref = useRef();
 	return (
-		<Ref innerRef={ref}>
-			<Grid>
+		<Ref>
+			<Grid stackable reversed="mobile" columns={2}>
 				<Grid.Column width={4}>
-					<Sticky context={ref} offset={100}>
-						<Room />
-					</Sticky>
+					<Room />
 				</Grid.Column>
 				<Grid.Column stretched width={12}>
 					{children}

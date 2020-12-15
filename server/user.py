@@ -12,6 +12,10 @@ def register_name(u, name):
     u['name'] = name
 
 
+def update_id(u):
+    u['_id'] = request.sid
+
+
 def name(u):
     return u.get('name') if u else None
 

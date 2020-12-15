@@ -10,11 +10,13 @@ const socket = io(url, {
         origin: `http://${document.domain}`,
         methods: ["GET", "POST"],
     },
+    query: { userName: window.sessionStorage.getItem("userName") },
 });
 
 export const connect = () => {
     console.log("connecting");
     socket.connect();
+    socket.on("connect", (data) => console.log("on connect", data));
 };
 
 export const emit = (event, data, ack = () => {}) => {

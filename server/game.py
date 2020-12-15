@@ -83,3 +83,19 @@ def calculatePointsFor(u):
         if (uVotedFor == host()):
             pts += 2
     return pts
+
+
+def getPlayers():
+    return (game or {}).get('players', [])
+
+
+def whosLeftToVote():
+    ps = [p for p in getPlayers()]
+    h = host()
+    if h in ps:
+        ps.remove(h)
+    votes = getVotes()
+    for u in votes:
+        if u in ps:
+            ps.remove(u)
+    return ps

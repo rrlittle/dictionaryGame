@@ -11,9 +11,9 @@ import {
 import TabsScreen from "./TabsScreen";
 
 const panes = [
-	{ menuItem: "Host Chooses a Word", render: () => <WaitingForHost /> },
-	{ menuItem: "Write a Definition", render: () => <WriteADefinition /> },
-	{ menuItem: "Wait for results", render: () => <WaitingForResults /> },
+	{ menuItem: "Wait for Host", render: () => <WaitingForHost /> },
+	{ menuItem: "Write Definition", render: () => <WriteADefinition /> },
+	{ menuItem: "Other players Writing", render: () => <WaitingForResults /> },
 	{ menuItem: "Vote", render: () => <Vote /> },
 	{ menuItem: "Summary", render: () => <Summary /> },
 ];
@@ -29,14 +29,7 @@ const screenMap = {
 const PlayerScreen = observer(() => {
 	const store = useContext(Store);
 	const users = store.users;
-	return (
-		<TabsScreen panes={panes} screenMap={screenMap}>
-			<p>You Are a Player!</p>
-			<p>
-				<strong>{users.host}</strong> is the Host!
-			</p>
-		</TabsScreen>
-	);
+	return <TabsScreen panes={panes} screenMap={screenMap} />;
 });
 
 export default PlayerScreen;

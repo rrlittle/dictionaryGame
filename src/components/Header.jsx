@@ -7,7 +7,7 @@ const Header = observer(() => {
 	const store = useContext(Store);
 	const users = store.users;
 	return (
-		<Menu fixed="top" inverted>
+		<Menu inverted>
 			<Container>
 				<Menu.Item position="right">
 					<Input

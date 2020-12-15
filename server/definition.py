@@ -58,6 +58,10 @@ def _id(defn):
     return _idFromUser(defn.get('user'))
 
 
+def whoCreated(d):
+    return d.get('user')
+
+
 def _idFromUser(u):
     return f'{hash(user.name(u))}'
 
