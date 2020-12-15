@@ -30,8 +30,9 @@ def stage():
 
 def end():
     global game
-    for u in getUsers():
-        incrementScore(u, calculatePointsFor(u))
+    if game:
+        for u in getUsers():
+            incrementScore(u, calculatePointsFor(u))
     game = None
 
 

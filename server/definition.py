@@ -68,7 +68,7 @@ def all():
 
 def whoVotedFor(u):
     d = definitions.get(_idFromUser(u)) or {}
-    return getVotes(d)
+    return getVotes(d) or []
 
 
 def whoDidUserVoteFor(u):

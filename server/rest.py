@@ -13,3 +13,9 @@ def gameState():
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
+
+
+@app.route('/reset')
+def reset():
+    game.end()
+    return gameState()

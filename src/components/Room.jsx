@@ -13,7 +13,7 @@ const Person = ({ name = "Anon", points = -1 }) => (
 const Room = observer(() => {
 	const store = useContext(Store);
 	return (
-		<Segment>
+		<Segment fluid>
 			<Header>People in the room</Header>
 			<List>
 				{store.users.getPeople.map(({ name, ...p }) => (
