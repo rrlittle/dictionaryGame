@@ -2,7 +2,7 @@ from . import app
 from . import game, clients, definition
 
 
-@app.route('/gaemstate')
+@app.route('/gamestate')
 def gameState():
     return dict(
         users=clients.all(),
