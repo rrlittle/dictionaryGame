@@ -1,21 +1,22 @@
-import React, { useRef } from "react";
-import { Grid, Ref, Sticky } from "semantic-ui-react";
+import React, { useContext } from "react";
+import { Grid } from "semantic-ui-react";
+import { observer } from "mobx-react";
+import Store from "../store";
 import Room from "./Room";
 
-const Content = ({ children }) => {
-	const ref = useRef();
+const Content = observer(({ children }) => {
+	const store = useContext(Store);
+	const isHost = store.users.isHost;
 	return (
-		<Ref>
-			<Grid stackable reversed="mobile" columns={2}>
-				<Grid.Column width={4}>
-					<Room />
-				</Grid.Column>
-				<Grid.Column stretched width={12}>
-					{children}
-				</Grid.Column>
-			</Grid>
-		</Ref>
+		<Grid stackable columns={2}>
+			<Grid.Column stretched width={12}>
+				{children}
+			</Grid.Column>
+			<Grid.Column width={4}>
+				<Room />
+			</Grid.Column>
+		</Grid>
 	);
-};
+});
 
 export default Content;

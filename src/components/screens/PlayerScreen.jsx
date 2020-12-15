@@ -1,6 +1,4 @@
-import React, { useContext } from "react";
-import { observer } from "mobx-react";
-import Store from "../../store";
+import React from "react";
 import {
 	WaitingForHost,
 	WriteADefinition,
@@ -26,10 +24,6 @@ const screenMap = {
 	summary: 4,
 };
 
-const PlayerScreen = observer(() => {
-	const store = useContext(Store);
-	const users = store.users;
-	return <TabsScreen panes={panes} screenMap={screenMap} />;
-});
+const PlayerScreen = () => <TabsScreen panes={panes} screenMap={screenMap} />;
 
 export default PlayerScreen;

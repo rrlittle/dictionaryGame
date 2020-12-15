@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { observer } from "mobx-react";
 import Store from "../../../store";
-import { Tab, Input } from "semantic-ui-react";
+import { Tab, Input, Button } from "semantic-ui-react";
 
 const ChooseAWord = observer(() => {
 	const store = useContext(Store);
@@ -18,11 +18,13 @@ const ChooseAWord = observer(() => {
 				placeholder="Enter a word"
 				value={store.hostWord}
 				onChange={(e, { value }) => game.typeHostWord(value)}
-				action={{
-					content: "Submit",
-					onClick: () => game.submitHostWord(),
-					disabled: store.hostWordSubmitDisabled,
-				}}
+			/>
+			<Button
+				content="Submit"
+				color="teal"
+				fluid
+				onClick={() => game.submitHostWord()}
+				disabled={store.hostWordSubmitDisabled}
 			/>
 		</Tab.Pane>
 	);

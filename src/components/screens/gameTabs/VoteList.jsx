@@ -5,7 +5,6 @@ import { List, Confirm, Statistic, Icon } from "semantic-ui-react";
 
 const Vote = ({
 	_id,
-	user = "ANON",
 	text = "NO TEXT",
 	votes = 0,
 	showUser,
@@ -27,7 +26,6 @@ const Vote = ({
 			<List.Content onClick={allowVote ? () => onClick() : () => {}}>
 				<List.Description>{text}</List.Description>
 				<List.Header as="a">
-					{showUser && user}
 					{hovering && allowVote && (
 						<Icon name="check" color="green" />
 					)}

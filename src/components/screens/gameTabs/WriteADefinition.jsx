@@ -28,6 +28,7 @@ const WriteADefinition = observer(() => {
 				<Button
 					fluid
 					float="right"
+					color="teal"
 					content="Submit Definition"
 					onClick={() => defs.submitDefinition()}
 				/>
