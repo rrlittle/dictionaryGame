@@ -3,6 +3,7 @@ import { Grid } from "semantic-ui-react";
 import { observer } from "mobx-react";
 import Store from "../store";
 import Room from "./Room";
+import WordSelector from "./WordSelector";
 
 const Content = observer(({ children }) => {
 	const store = useContext(Store);
@@ -15,6 +16,11 @@ const Content = observer(({ children }) => {
 			<Grid.Column width={4}>
 				<Room />
 			</Grid.Column>
+			{isHost && (
+				<Grid.Column width={6}>
+					<WordSelector />
+				</Grid.Column>
+			)}
 		</Grid>
 	);
 });

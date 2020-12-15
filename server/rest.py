@@ -1,6 +1,7 @@
 from . import app
 from . import game, clients, definition, user
-from json import dumps
+from json import dumps, load
+from random import choice
 
 
 def simplifyUid(u):
@@ -50,3 +51,11 @@ def index():
 def reset():
     game.end()
     return gameState()
+
+
+@app.route('/word')
+def word():
+    with open('./server/words.json', 'r') as fp:
+        w, d = choice(load(fp))
+        return dict(word=w,
+                    definition=d)
