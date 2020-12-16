@@ -2,8 +2,6 @@ from sys import setrecursionlimit
 from requests import get
 from bs4 import BeautifulSoup
 from json import dump
-import shutil
-from os import remove
 
 setrecursionlimit(10000)
 
