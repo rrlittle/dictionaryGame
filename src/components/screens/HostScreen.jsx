@@ -1,15 +1,29 @@
 import React from "react";
 import { ChooseAWord, WriteADefinition, WatchVotes, Summary } from "./gameTabs";
 import TabsScreen from "./TabsScreen";
+import MenuItem from "./MenuItem";
 
 const panes = [
-    { menuItem: "Choose word", render: () => <ChooseAWord /> },
     {
-        menuItem: "write true definition",
+        menuItem: <MenuItem icon="search" content="Pick a Word" key="s" />,
+        render: () => <ChooseAWord />,
+    },
+    {
+        menuItem: (
+            <MenuItem icon="edit" content="Write True Definition" key="w" />
+        ),
         render: () => <WriteADefinition />,
     },
-    { menuItem: "Watch Votes", render: () => <WatchVotes /> },
-    { menuItem: "Summary", render: () => <Summary /> },
+    {
+        menuItem: (
+            <MenuItem icon="eye" content="Wait for Players to Vote" key="v" />
+        ),
+        render: () => <WatchVotes />,
+    },
+    {
+        menuItem: <MenuItem icon="list" content="Summary" key="sum" />,
+        render: () => <Summary />,
+    },
 ];
 
 const screenMap = {

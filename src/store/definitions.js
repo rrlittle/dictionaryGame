@@ -5,7 +5,6 @@ import find from "lodash/find";
 
 class Definitions {
     store;
-    tmpDefinition = "";
 
     playerSubmissionPercent = 0;
     definitions = [];
@@ -21,12 +20,12 @@ class Definitions {
             this.onPlayerSubittedDefinition(data)
         );
         register(constants.PLAYER_VOTED, (data) => this.onPlayerVoted(data));
+        register(constants.GAME_BEGUN, (data) => this.onGameBegun(data));
     }
 
     /** EXTERNAL EVENT HANDLERS **/
     initializeDefinitions({ definitions }) {
         this.definitions = definitions;
-        this.tmpDefinition = "";
     }
 
     onPlayerSubittedDefinition({ percent, definition }) {
@@ -39,12 +38,15 @@ class Definitions {
         votedDef.votes = votes;
     }
 
+    onGameBegun() {
+        this.definitions = [];
+    }
     /** TRIGGER EXTERNAL EVENTS **/
 
-    submitDefinition() {
+    submitDefinition(defn) {
         emit(
             constants.PLAYER_SUBMITS_DEFN,
-            this.tmpDefinition,
+            defn,
             action(() => {
                 if (this.store.game.stage === "writing") {
                     if (this.store.users.isHost)
@@ -61,12 +63,6 @@ class Definitions {
             _id,
             action(() => (this.hasVoted = false))
         );
-    }
-
-    /** INTERNAL STATE ACTIONS**/
-
-    typeDefinition(val) {
-        this.tmpDefinition = val;
     }
 }
 

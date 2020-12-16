@@ -7,13 +7,33 @@ import {
 	Summary,
 } from "./gameTabs";
 import TabsScreen from "./TabsScreen";
+import MenuItem from "./MenuItem";
 
 const panes = [
-	{ menuItem: "Wait for Host", render: () => <WaitingForHost /> },
-	{ menuItem: "Write Definition", render: () => <WriteADefinition /> },
-	{ menuItem: "Other players Writing", render: () => <WaitingForResults /> },
-	{ menuItem: "Vote", render: () => <Vote /> },
-	{ menuItem: "Summary", render: () => <Summary /> },
+	{
+		menuItem: (
+			<MenuItem key="h" icon="clock outline" content="Wait for Host" />
+		),
+		render: () => <WaitingForHost />,
+	},
+	{
+		menuItem: <MenuItem key="w" icon="edit" content="Write Definition" />,
+		render: () => <WriteADefinition />,
+	},
+	{
+		menuItem: (
+			<MenuItem key="wait" icon="clock" content="Other Players Writing" />
+		),
+		render: () => <WaitingForResults />,
+	},
+	{
+		menuItem: <MenuItem key="v" icon="clipboard check" content="Vote" />,
+		render: () => <Vote />,
+	},
+	{
+		menuItem: <MenuItem key="sum" icon="list" content="Summary" />,
+		render: () => <Summary />,
+	},
 ];
 
 const screenMap = {

@@ -9,7 +9,7 @@ const TabsScreen = observer(({ panes, screenMap = {} }) => {
     return (
         <div>
             <Tab
-                menu={{ fluid: true, vertical: true }}
+                menu={{ fluid: true, vertical: true, icon: "labeled" }}
                 panes={panes}
                 activeIndex={screenMap[game.stage]}
             />

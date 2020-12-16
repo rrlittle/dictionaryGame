@@ -8,7 +8,7 @@ CORS(app)
 app.config['SECRET_KEY'] = 'secret'
 app.debug = True
 socketio = SocketIO(app, cors_allowed_origins="*",
-                    logger=True, engineio_logger=True)
+                    logger=True)
 
 from . import events
 from . import rest
