@@ -6,6 +6,9 @@ import Store from "../store";
 const Header = observer(() => {
 	const store = useContext(Store);
 	const users = store.users;
+	if (users.registeredUserName) {
+		document.title = users.registeredUserName;
+	}
 	return (
 		<Menu inverted>
 			<Container>

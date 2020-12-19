@@ -16,7 +16,6 @@ const WordSelector = () => {
                     })
                     .then((defs) => {
                         setRes(defs);
-                        setLoading(false);
                     })
                     .catch(() => {
                         setRes([
@@ -25,7 +24,8 @@ const WordSelector = () => {
                                 meanings: [{ definitions: [{ definition }] }],
                             },
                         ]);
-                    });
+                    })
+                    .finally(() => setLoading(false));
             });
     };
     useEffect(() => {
@@ -35,15 +35,20 @@ const WordSelector = () => {
         <Segment>
             <Item.Group>
                 {loading && <Loader active></Loader>}
-                {res.map(({ word, phonetics = [], meanings = [] }, i) => (
-                    <Item key={i}>
+                {res.map(({ word, phonetics = [], meanings = [] }, wordI) => (
+                    <Item key={wordI}>
                         <Item.Content>
                             <Item.Header>{word}</Item.Header>
                             {meanings.map(
-                                ({ partOfSpeech, definitions = [] }, j) =>
+                                (
+                                    { partOfSpeech, definitions = [] },
+                                    partOfSpeechI
+                                ) =>
                                     definitions.map(
-                                        ({ definition, example }) => (
-                                            <React.Fragment key={j}>
+                                        ({ definition, example }, defI) => (
+                                            <React.Fragment
+                                                key={`${partOfSpeechI}_${defI}`}
+                                            >
                                                 <Item.Description>
                                                     <i>{partOfSpeech}</i>{" "}
                                                     {definition}
@@ -55,14 +60,20 @@ const WordSelector = () => {
                                         )
                                     )
                             )}
-                            {phonetics.map(({ text }, j) => (
-                                <Item.Meta key={j}>{text}</Item.Meta>
+                            {phonetics.map(({ text }, phoneticsI) => (
+                                <Item.Meta key={`phonetics_${phoneticsI}`}>
+                                    {text}
+                                </Item.Meta>
                             ))}
                         </Item.Content>
                     </Item>
                 ))}
             </Item.Group>
-            <Button content="get a random word" onClick={fetchWord} />
+            <Button
+                content="get a random word"
+                onClick={fetchWord}
+                disabled={loading}
+            />
         </Segment>
     );
 };

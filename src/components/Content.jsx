@@ -17,7 +17,7 @@ const Content = observer(({ children }) => {
 				<Room />
 			</Grid.Column>
 			{isHost && (
-				<Grid.Column width={6}>
+				<Grid.Column width={16}>
 					<WordSelector />
 				</Grid.Column>
 			)}
