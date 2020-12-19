@@ -2,6 +2,7 @@ import { makeAutoObservable, action } from "mobx";
 import { register, emit } from "./socket";
 import constants from "./constants";
 import find from "lodash/find";
+import shuffle from "lodash/shuffle";
 
 class Definitions {
     store;
@@ -26,11 +27,13 @@ class Definitions {
     /** EXTERNAL EVENT HANDLERS **/
     initializeDefinitions({ definitions }) {
         this.definitions = definitions;
+        shuffle(this.definitions);
     }
 
     onPlayerSubittedDefinition({ percent, definition }) {
         this.playerSubmissionPercent = percent;
         this.definitions.push(definition);
+        shuffle(this.definitions);
     }
 
     onPlayerVoted({ _id, votes }) {
