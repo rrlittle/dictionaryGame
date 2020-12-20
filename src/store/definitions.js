@@ -26,14 +26,13 @@ class Definitions {
 
     /** EXTERNAL EVENT HANDLERS **/
     initializeDefinitions({ definitions }) {
-        this.definitions = definitions;
-        shuffle(this.definitions);
+        this.definitions = shuffle(definitions);
     }
 
     onPlayerSubittedDefinition({ percent, definition }) {
         this.playerSubmissionPercent = percent;
         this.definitions.push(definition);
-        shuffle(this.definitions);
+        this.definitions = shuffle(this.definitions);
     }
 
     onPlayerVoted({ _id, votes }) {
