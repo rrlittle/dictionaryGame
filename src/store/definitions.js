@@ -31,8 +31,7 @@ class Definitions {
 
     onPlayerSubittedDefinition({ percent, definition }) {
         this.playerSubmissionPercent = percent;
-        this.definitions.push(definition);
-        this.definitions = shuffle(this.definitions);
+        this.definitions = shuffle([...this.definitions, definition]);
     }
 
     onPlayerVoted({ _id, votes }) {
